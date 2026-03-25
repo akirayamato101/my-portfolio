@@ -169,9 +169,7 @@
     .mobile-nav .nav-link { font-size: 0.85rem; }
 
     /* ── HOME PAGE ── */
-    #page-home {
-      background: var(--black);
-    }
+    #page-home { background: var(--black); }
     #hero {
       min-height: 100vh;
       display: grid;
@@ -286,27 +284,6 @@
       content: '';
       position: absolute; inset: 0;
       background: radial-gradient(ellipse at 60% 40%, rgba(201,168,76,0.07) 0%, transparent 70%);
-    }
-    .profile-icon {
-      width: 90px; height: 90px;
-      border-radius: 50%;
-      border: 2px dashed rgba(201,168,76,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 1;
-    }
-    .profile-icon svg { opacity: 0.4; }
-    .placeholder-text {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      color: rgba(201,168,76,0.5);
-      text-transform: uppercase;
-      text-align: center;
-      position: relative;
-      z-index: 1;
     }
     .hero-bg-text {
       position: absolute;
@@ -540,32 +517,214 @@
       transition: transform 0.5s ease;
     }
     .portfolio-item:hover .portfolio-img-placeholder { transform: scale(1.03); }
-    .portfolio-item img { transition: transform 0.5s ease; }
+    .portfolio-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
     .portfolio-item:hover img { transform: scale(1.03); }
     .portfolio-overlay {
       position: absolute; inset: 0;
-      background: rgba(10,10,10,0.88);
+      background: rgba(10,10,10,0.82);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.35s ease;
     }
     .portfolio-item:hover .portfolio-overlay { opacity: 1; }
-    .portfolio-overlay-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
-    .portfolio-overlay-cat { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; }
-    .upload-badge {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      color: rgba(201,168,76,0.4);
-      text-transform: uppercase;
-      border: 1px dashed rgba(201,168,76,0.25);
-      padding: 0.4rem 0.8rem;
+    .portfolio-overlay-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
     }
-    .upload-icon { font-size: 2.5rem; opacity: 0.2; }
+    .portfolio-overlay-cat {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    /* View button inside overlay */
+    .overlay-view-btn {
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      border: none;
+      padding: 0.5rem 1.2rem;
+      cursor: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .overlay-view-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .overlay-view-btn svg { width: 12px; height: 12px; fill: var(--black); }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(5,4,3,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      backdrop-filter: blur(8px);
+    }
+    #lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lightbox-inner {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+    .lightbox-img-wrap {
+      position: relative;
+      width: 780px;
+      max-width: 90vw;
+      height: 520px;
+      max-height: 70vh;
+      border: 1px solid rgba(201,168,76,0.25);
+      background: #0d0b08;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    #lightboxImg {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      transform: scale(0.94);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease;
+    }
+    #lightbox.open #lightboxImg {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .lightbox-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .lightbox-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .lightbox-cat {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    /* Close button */
+    .lightbox-close {
+      position: absolute;
+      top: -3rem;
+      right: 0;
+      width: 36px; height: 36px;
+      background: none;
+      border: 1px solid rgba(201,168,76,0.35);
+      color: rgba(245,240,232,0.7);
+      font-size: 1.1rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: none;
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+    }
+    .lightbox-close:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+    /* Prev / Next arrows */
+    .lightbox-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px; height: 44px;
+      background: rgba(10,10,10,0.7);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: rgba(245,240,232,0.7);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: none;
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+      z-index: 2;
+    }
+    .lightbox-arrow:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+    .lightbox-arrow.prev { left: -58px; }
+    .lightbox-arrow.next { right: -58px; }
+    /* Counter */
+    .lightbox-counter {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: rgba(245,240,232,0.3);
+      text-transform: uppercase;
+      margin-top: -0.3rem;
+    }
+    /* Corner accents on image frame */
+    .lightbox-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 12px solid transparent;
+      border-image: none;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .corner-tl, .corner-br {
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: rgba(201,168,76,0.4);
+      border-style: solid;
+      z-index: 3;
+    }
+    .corner-tl { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
+    .corner-br { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
+
+    /* Services on projects page */
     .services-section {
       max-width: 1200px;
       margin: 5rem auto 0;
@@ -662,11 +821,8 @@
     }
     .form-submit:hover { background: #d4692f; transform: translateY(-2px); }
 
-    /* Testimonials on contact page */
-    .testimonials-section {
-      max-width: 1200px;
-      margin: 5rem auto 0;
-    }
+    /* Testimonials */
+    .testimonials-section { max-width: 1200px; margin: 5rem auto 0; }
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -719,6 +875,8 @@
       .testimonials-grid { grid-template-columns: 1fr; }
       footer { padding: 2rem 3rem; flex-direction: column; gap: 1rem; text-align: center; }
       #page-about, #page-projects, #page-contact { padding: 8rem 3rem 5rem; }
+      .lightbox-arrow.prev { left: -46px; }
+      .lightbox-arrow.next { right: -46px; }
     }
     @media (max-width: 768px) {
       .nav-links { display: none !important; }
@@ -730,6 +888,10 @@
       .form-row { grid-template-columns: 1fr; }
       .scroll-hint { display: none; }
       .testimonials-grid { grid-template-columns: 1fr; }
+      .lightbox-img-wrap { width: 92vw; height: 56vw; min-height: 200px; }
+      .lightbox-arrow.prev { left: 0; top: auto; bottom: -54px; transform: none; }
+      .lightbox-arrow.next { right: 0; top: auto; bottom: -54px; transform: none; }
+      .lightbox-close { top: -44px; right: 0; }
     }
   </style>
 </head>
@@ -737,6 +899,25 @@
 
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ── LIGHTBOX ── -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">&#10005;</button>
+      <div class="lightbox-img-wrap">
+        <div class="corner-tl"></div>
+        <div class="corner-br"></div>
+        <img id="lightboxImg" src="" alt="" />
+      </div>
+      <div class="lightbox-meta">
+        <p class="lightbox-title" id="lightboxTitle"></p>
+        <p class="lightbox-cat" id="lightboxCat"></p>
+      </div>
+      <p class="lightbox-counter" id="lightboxCounter"></p>
+      <button class="lightbox-arrow prev" id="lightboxPrev" aria-label="Previous">&#8592;</button>
+      <button class="lightbox-arrow next" id="lightboxNext" aria-label="Next">&#8594;</button>
+    </div>
+  </div>
 
   <!-- NAV -->
   <nav>
@@ -779,8 +960,7 @@
         <div class="hero-img-frame">
           <div class="hero-img-border"></div>
           <div class="hero-img-placeholder">
-            <img src="Profile.jpg" alt="Peter Paul Pelegrino"
-                style="width:100%; height:100%; object-fit:cover; display:block;">
+            <img src="Profile.jpg" alt="Peter Paul Pelegrino" style="width:100%; height:100%; object-fit:cover; display:block;">
           </div>
         </div>
       </div>
@@ -789,15 +969,14 @@
         Scroll to explore
       </div>
     </section>
-
     <footer>
       <div class="footer-logo">Peter Paul <em>Pelegrino</em></div>
       <p class="footer-copy">&copy; 2025 Peter Paul D. Pelegrino &mdash; Visual Graphics Designer</p>
       <div class="footer-socials">
-        <a href="#" class="social-link" title="Facebook">f</a>
-        <a href="#" class="social-link" title="Instagram">ig</a>
-        <a href="#" class="social-link" title="LinkedIn">in</a>
-        <a href="#" class="social-link" title="Behance">be</a>
+        <a href="#" class="social-link">f</a>
+        <a href="#" class="social-link">ig</a>
+        <a href="#" class="social-link">in</a>
+        <a href="#" class="social-link">be</a>
       </div>
     </footer>
   </div>
@@ -845,7 +1024,6 @@
         </div>
       </div>
     </div>
-
     <footer>
       <div class="footer-logo">Peter Paul <em>Pelegrino</em></div>
       <p class="footer-copy">&copy; 2025 Peter Paul D. Pelegrino &mdash; Visual Graphics Designer</p>
@@ -872,59 +1050,82 @@
         <button class="filter-btn" onclick="filterPortfolio('digital', this)">Digital</button>
       </div>
     </div>
-    <div class="portfolio-grid" id="portfolioGrid">
 
-      <div class="portfolio-item" data-cat="branding">
-        <img src="Poster1.jpg" alt="Brand Identity Project" style="width:100%; height:100%; object-fit:cover; display:block;">
+    <div class="portfolio-grid" id="portfolioGrid">
+      <div class="portfolio-item" data-cat="branding" data-title="Brand Identity Project" data-img="Poster1.jpg" onclick="openLightbox(this)">
+        <img src="Poster1.jpg" alt="Brand Identity Project">
         <div class="portfolio-overlay">
           <p class="portfolio-overlay-title">Brand Identity Project</p>
           <p class="portfolio-overlay-cat">Branding</p>
+          <button class="overlay-view-btn">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 3C4.5 3 1.5 5.5 0 8c1.5 2.5 4.5 5 8 5s6.5-2.5 8-5c-1.5-2.5-4.5-5-8-5zm0 8a3 3 0 110-6 3 3 0 010 6zm0-5a2 2 0 100 4 2 2 0 000-4z"/></svg>
+            View Image
+          </button>
         </div>
       </div>
 
-      <div class="portfolio-item" data-cat="digital">
-        <img src="Poster2.jpg" alt="Social Media Campaign" style="width:100%; height:100%; object-fit:cover; display:block;">
+      <div class="portfolio-item" data-cat="digital" data-title="Social Media Campaign" data-img="Poster2.jpg" onclick="openLightbox(this)">
+        <img src="Poster2.jpg" alt="Social Media Campaign">
         <div class="portfolio-overlay">
           <p class="portfolio-overlay-title">Social Media Campaign</p>
           <p class="portfolio-overlay-cat">Digital</p>
+          <button class="overlay-view-btn">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 3C4.5 3 1.5 5.5 0 8c1.5 2.5 4.5 5 8 5s6.5-2.5 8-5c-1.5-2.5-4.5-5-8-5zm0 8a3 3 0 110-6 3 3 0 010 6zm0-5a2 2 0 100 4 2 2 0 000-4z"/></svg>
+            View Image
+          </button>
         </div>
       </div>
 
-      <div class="portfolio-item" data-cat="print">
-        <img src="burgerstreetlogo.jpg" alt="Event Poster" style="width:100%; height:100%; object-fit:cover; display:block;">
+      <div class="portfolio-item" data-cat="print" data-title="Event Poster" data-img="burgerstreetlogo.jpg" onclick="openLightbox(this)">
+        <img src="burgerstreetlogo.jpg" alt="Event Poster">
         <div class="portfolio-overlay">
           <p class="portfolio-overlay-title">Event Poster</p>
           <p class="portfolio-overlay-cat">Print</p>
+          <button class="overlay-view-btn">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 3C4.5 3 1.5 5.5 0 8c1.5 2.5 4.5 5 8 5s6.5-2.5 8-5c-1.5-2.5-4.5-5-8-5zm0 8a3 3 0 110-6 3 3 0 010 6zm0-5a2 2 0 100 4 2 2 0 000-4z"/></svg>
+            View Image
+          </button>
         </div>
       </div>
 
-      <div class="portfolio-item" data-cat="branding">
-        <img src="Poster1.jpg" alt="Logo Design" style="width:100%; height:100%; object-fit:cover; display:block;">
+      <div class="portfolio-item" data-cat="branding" data-title="Logo Design" data-img="Poster1.jpg" onclick="openLightbox(this)">
+        <img src="Poster1.jpg" alt="Logo Design">
         <div class="portfolio-overlay">
           <p class="portfolio-overlay-title">Logo Design</p>
           <p class="portfolio-overlay-cat">Branding</p>
+          <button class="overlay-view-btn">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 3C4.5 3 1.5 5.5 0 8c1.5 2.5 4.5 5 8 5s6.5-2.5 8-5c-1.5-2.5-4.5-5-8-5zm0 8a3 3 0 110-6 3 3 0 010 6zm0-5a2 2 0 100 4 2 2 0 000-4z"/></svg>
+            View Image
+          </button>
         </div>
       </div>
 
-      <div class="portfolio-item" data-cat="digital">
-        <img src="Poster1.jpg" alt="Digital Illustration" style="width:100%; height:100%; object-fit:cover; display:block;">
+      <div class="portfolio-item" data-cat="digital" data-title="Digital Illustration" data-img="Poster1.jpg" onclick="openLightbox(this)">
+        <img src="Poster1.jpg" alt="Digital Illustration">
         <div class="portfolio-overlay">
           <p class="portfolio-overlay-title">Digital Illustration</p>
           <p class="portfolio-overlay-cat">Digital</p>
+          <button class="overlay-view-btn">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 3C4.5 3 1.5 5.5 0 8c1.5 2.5 4.5 5 8 5s6.5-2.5 8-5c-1.5-2.5-4.5-5-8-5zm0 8a3 3 0 110-6 3 3 0 010 6zm0-5a2 2 0 100 4 2 2 0 000-4z"/></svg>
+            View Image
+          </button>
         </div>
       </div>
 
-      <div class="portfolio-item" data-cat="print">
-        <img src="Poster1.jpg" alt="Packaging Design" style="width:100%; height:100%; object-fit:cover; display:block;">
+      <div class="portfolio-item" data-cat="print" data-title="Packaging Design" data-img="Poster1.jpg" onclick="openLightbox(this)">
+        <img src="Poster1.jpg" alt="Packaging Design">
         <div class="portfolio-overlay">
           <p class="portfolio-overlay-title">Packaging Design</p>
           <p class="portfolio-overlay-cat">Print</p>
+          <button class="overlay-view-btn">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 3C4.5 3 1.5 5.5 0 8c1.5 2.5 4.5 5 8 5s6.5-2.5 8-5c-1.5-2.5-4.5-5-8-5zm0 8a3 3 0 110-6 3 3 0 010 6zm0-5a2 2 0 100 4 2 2 0 000-4z"/></svg>
+            View Image
+          </button>
         </div>
       </div>
-
     </div>
 
-    <!-- Services on projects page -->
+    <!-- Services -->
     <div class="services-section">
       <p class="section-label reveal" style="margin-top:1rem;">What I Offer</p>
       <h2 class="section-title reveal">Design <em>services</em> built for impact</h2>
@@ -1052,7 +1253,6 @@
 
     // ── Page navigation ──
     const pages = ['home', 'about', 'projects', 'contact'];
-
     function goTo(id) {
       pages.forEach(p => {
         document.getElementById('page-' + p).classList.remove('active');
@@ -1064,11 +1264,7 @@
       const nl = document.getElementById('nl-' + id);
       if (nl) nl.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      // Trigger reveals for new page
       setTimeout(() => triggerReveals(page), 80);
-
-      // Animate skill bars on about page
       if (id === 'about') {
         setTimeout(() => {
           document.getElementById('skillsGrid').classList.add('skills-animated');
@@ -1088,7 +1284,6 @@
         });
       }, { threshold: 0.08 });
       items.forEach(el => obs.observe(el));
-      // Also immediately show above-fold items
       items.forEach((el, i) => {
         const rect = el.getBoundingClientRect();
         if (rect.top < window.innerHeight) {
@@ -1096,8 +1291,6 @@
         }
       });
     }
-
-    // Init reveals for home page
     triggerReveals(document.getElementById('page-home'));
 
     // ── Portfolio filter ──
@@ -1127,6 +1320,82 @@
     function closeMobile() {
       document.getElementById('mobileNav').classList.remove('open');
     }
+
+    // ── LIGHTBOX ──
+    const lightbox     = document.getElementById('lightbox');
+    const lightboxImg  = document.getElementById('lightboxImg');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxCat  = document.getElementById('lightboxCat');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+
+    let currentIndex = 0;
+    let visibleItems = [];
+
+    function getVisibleItems() {
+      return Array.from(document.querySelectorAll('#portfolioGrid .portfolio-item'))
+                  .filter(el => el.style.display !== 'none');
+    }
+
+    function openLightbox(el) {
+      visibleItems = getVisibleItems();
+      currentIndex = visibleItems.indexOf(el);
+      showSlide(currentIndex);
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showSlide(idx) {
+      const item = visibleItems[idx];
+      const img  = item.querySelector('img');
+      lightboxImg.style.opacity = '0';
+      lightboxImg.style.transform = 'scale(0.94)';
+      setTimeout(() => {
+        lightboxImg.src = img ? img.src : '';
+        lightboxImg.alt = item.dataset.title || '';
+        lightboxTitle.textContent = item.dataset.title || '';
+        lightboxCat.textContent   = item.dataset.cat   || '';
+        lightboxCounter.textContent = (idx + 1) + ' / ' + visibleItems.length;
+      }, 80);
+      // Re-trigger animation
+      setTimeout(() => {
+        lightboxImg.style.opacity = '1';
+        lightboxImg.style.transform = 'scale(1)';
+      }, 90);
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev').addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
+      showSlide(currentIndex);
+    });
+    document.getElementById('lightboxNext').addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % visibleItems.length;
+      showSlide(currentIndex);
+    });
+
+    // Close on backdrop click
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') {
+        currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
+        showSlide(currentIndex);
+      }
+      if (e.key === 'ArrowRight') {
+        currentIndex = (currentIndex + 1) % visibleItems.length;
+        showSlide(currentIndex);
+      }
+    });
   </script>
 </body>
 </html>
