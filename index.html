@@ -540,7 +540,6 @@
       transition: transform 0.5s ease;
     }
     .portfolio-item:hover .portfolio-img-placeholder { transform: scale(1.03); }
-    .portfolio-item:hover img { transform: scale(1.03); }
     .portfolio-overlay {
       position: absolute; inset: 0;
       background: rgba(10,10,10,0.88);
@@ -872,30 +871,18 @@
       </div>
     </div>
     <div class="portfolio-grid" id="portfolioGrid">
-      <div class="portfolio-item" data-cat="branding">
-        <img src="Poster1.jpg" alt="Brand Identity Project" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;">
-        <div class="portfolio-overlay"><p class="portfolio-overlay-title">Brand Identity Project</p><p class="portfolio-overlay-cat">Branding</p></div>
-      </div>
-      <div class="portfolio-item" data-cat="digital">
-        <img src="Poster2.jpg" alt="Social Media Campaign" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;">
-        <div class="portfolio-overlay"><p class="portfolio-overlay-title">Social Media Campaign</p><p class="portfolio-overlay-cat">Digital</p></div>
-      </div>
-      <div class="portfolio-item" data-cat="print">
-        <img src="burgerstreetlogo.jpg" alt="Event Poster" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;">
-        <div class="portfolio-overlay"><p class="portfolio-overlay-title">Event Poster</p><p class="portfolio-overlay-cat">Print</p></div>
-      </div>
-      <div class="portfolio-item" data-cat="branding">
-        <img src="Poster1.jpg" alt="Logo Design" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;">
-        <div class="portfolio-overlay"><p class="portfolio-overlay-title">Logo Design</p><p class="portfolio-overlay-cat">Branding</p></div>
-      </div>
-      <div class="portfolio-item" data-cat="digital">
-        <img src="Poster1.jpg" alt="Digital Illustration" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;">
-        <div class="portfolio-overlay"><p class="portfolio-overlay-title">Digital Illustration</p><p class="portfolio-overlay-cat">Digital</p></div>
-      </div>
-      <div class="portfolio-item" data-cat="print">
-        <img src="Poster1.jpg" alt="Packaging Design" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;">
-        <div class="portfolio-overlay"><p class="portfolio-overlay-title">Packaging Design</p><p class="portfolio-overlay-cat">Print</p></div>
-      </div>
+      <img src="Poster1.jpg" alt="Brand Identity Project" 
+        style="width:100%; height:100%; object-fit:cover; display:block;">
+      <img src="Poster2.jpg" alt="Brand Identity Project" 
+        style="width:100%; height:100%; object-fit:cover; display:block;">
+      <img src="burgerstreetlogo.jpg" alt="Brand Identity Project" 
+        style="width:100%; height:100%; object-fit:cover; display:block;">
+      <img src="Poster1.jpg" alt="Brand Identity Project" 
+        style="width:100%; height:100%; object-fit:cover; display:block;">
+      <img src="Poster1.jpg" alt="Brand Identity Project" 
+        style="width:100%; height:100%; object-fit:cover; display:block;">
+      <img src="Poster1.jpg" alt="Brand Identity Project" 
+        style="width:100%; height:100%; object-fit:cover; display:block;">
     </div>
 
     <!-- Services on projects page -->
@@ -942,7 +929,7 @@
           </div>
           <div class="contact-item">
             <div class="contact-icon">✉️</div>
-            <div><p class="contact-item-label">Email</p><p class="contact-item-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="483a21273229232125202d2d7970082f25292124662b2725">[email&#160;protected]</a></p></div>
+            <div><p class="contact-item-label">Email</p><p class="contact-item-value">riozakimhee18@gmail.com</p></div>
           </div>
           <div class="contact-item">
             <div class="contact-icon">🕐</div>
@@ -1011,7 +998,7 @@
     </footer>
   </div>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     // ── Custom cursor ──
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
@@ -1095,4 +1082,12 @@
     }
 
     // ── Hamburger ──
-    document.getElementById('hamburger').addEventListener
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileNav').classList.toggle('open');
+    });
+    function closeMobile() {
+      document.getElementById('mobileNav').classList.remove('open');
+    }
+  </script>
+</body>
+</html>
